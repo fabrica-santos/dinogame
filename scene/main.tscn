@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://b07xox2y14wss"]
+
+[ext_resource type="Script" path="res://script/main.gd" id="1_00oj4"]
+[ext_resource type="Texture2D" uid="uid://briet6go52trq" path="res://icon.svg" id="1_drv7a"]
+[ext_resource type="Script" path="res://script/player.gd" id="1_on31g"]
+[ext_resource type="Script" path="res://script/obstacle_spawner.gd" id="4_cnqv3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fot1o"]
+size = Vector2(38, 38)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2jdty"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_00oj4")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_on31g")
+
+[node name="Icon" type="Sprite2D" parent="Player"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_drv7a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_fot1o")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(597, 481)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape2D_2jdty")
+
+[node name="ScoreTick" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -46.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "00000"
+horizontal_alignment = 2
+
+[node name="ObstacleSpawner" type="Marker2D" parent="."]
+position = Vector2(1307, 480)
+gizmo_extents = 30.0
+script = ExtResource("4_cnqv3")
+
+[node name="ObstacleTimer" type="Timer" parent="ObstacleSpawner"]
+wait_time = 5.0
+
+[connection signal="timeout" from="ScoreTick" to="." method="_on_score_tick_timeout"]
+[connection signal="speed_requested" from="ObstacleSpawner" to="." method="_on_speed_requested"]
+[connection signal="timeout" from="ObstacleSpawner/ObstacleTimer" to="ObstacleSpawner" method="_on_obstacle_timer_timeout"]
