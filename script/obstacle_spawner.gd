@@ -1,6 +1,7 @@
 extends Marker2D
 
 signal speed_requested(new_speed)
+signal obstacle_collided
 
 const OBSTACLE = preload("res://scene/obstacle.tscn")
 
@@ -22,4 +23,5 @@ func spawn_obstacle() -> void:
 	var _obstacle = OBSTACLE.instantiate()
 	add_child(_obstacle)
 	speed_requested.emit(_obstacle)
-	print(_obstacle.speed)
+	_obstacle.collided.connect(obstacle_collided.emit)
+	
