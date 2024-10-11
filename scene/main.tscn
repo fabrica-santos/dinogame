@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b07xox2y14wss"]
+[gd_scene load_steps=9 format=3 uid="uid://b07xox2y14wss"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_00oj4"]
 [ext_resource type="Texture2D" uid="uid://briet6go52trq" path="res://icon.svg" id="1_drv7a"]
 [ext_resource type="Script" path="res://script/player.gd" id="1_on31g"]
+[ext_resource type="Resource" uid="uid://cms5h73hluo1u" path="res://resource/default_game_state.tres" id="2_spqmx"]
 [ext_resource type="Script" path="res://script/obstacle_spawner.gd" id="4_cnqv3"]
 [ext_resource type="PackedScene" uid="uid://34hd4idevgqb" path="res://scene/game_over.tscn" id="4_g5u6w"]
 
@@ -13,8 +14,10 @@ size = Vector2(38, 38)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_00oj4")
+game_state = ExtResource("2_spqmx")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+collision_mask = 6
 script = ExtResource("1_on31g")
 
 [node name="Icon" type="Sprite2D" parent="Player"]
@@ -26,6 +29,8 @@ shape = SubResource("RectangleShape2D_fot1o")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(597, 481)
+collision_layer = 4
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("WorldBoundaryShape2D_2jdty")
@@ -55,7 +60,6 @@ gizmo_extents = 30.0
 script = ExtResource("4_cnqv3")
 
 [node name="ObstacleTimer" type="Timer" parent="ObstacleSpawner"]
-wait_time = 2.0
 
 [connection signal="timeout" from="ScoreTick" to="." method="_on_score_tick_timeout"]
 [connection signal="obstacle_collided" from="ObstacleSpawner" to="." method="_on_obstacle_collided"]

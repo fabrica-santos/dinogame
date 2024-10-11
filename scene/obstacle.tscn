@@ -5,7 +5,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4s4s0"]
 size = Vector2(20, 40)
 
-[node name="Obstacle" type="Area2D"]
+[node name="Obstacle" type="Area2D" groups=["obstacle"]]
+collision_layer = 2
 script = ExtResource("1_xip5g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
