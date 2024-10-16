@@ -21,6 +21,12 @@ var is_game_running: bool = true
 
 func _ready() -> void:
 	EventBus.game_restarted.connect(_on_game_restarted)
+	
+	var loaded_save: GameState = SaveManager.load_save()
+	if loaded_save == null:
+		SaveManager.write_save(game_state)
+	else:
+		game_state = loaded_save
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -48,6 +54,8 @@ func _on_obstacle_collided() -> void:
 	is_game_running = false
 	game_speed = 0
 	get_tree().call_group("obstacle", "set_speed", game_speed)
+	
+	SaveManager.write_save(game_state)
 
 
 func _on_game_restarted() -> void:
