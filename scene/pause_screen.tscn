@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://bouu3jidyqm5a"]
+
+[ext_resource type="Script" path="res://script/pause_screen.gd" id="1_ayc6s"]
+
+[node name="PauseScreen" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ayc6s")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pause" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Pause"
+
+[connection signal="pressed" from="CenterContainer/Pause" to="." method="_on_pause_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b07xox2y14wss"]
+[gd_scene load_steps=10 format=3 uid="uid://b07xox2y14wss"]
 
 [ext_resource type="Script" path="res://script/main.gd" id="1_00oj4"]
 [ext_resource type="Texture2D" uid="uid://briet6go52trq" path="res://icon.svg" id="1_drv7a"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://cms5h73hluo1u" path="res://resource/default_game_state.tres" id="2_spqmx"]
 [ext_resource type="Script" path="res://script/obstacle_spawner.gd" id="4_cnqv3"]
 [ext_resource type="PackedScene" uid="uid://34hd4idevgqb" path="res://scene/game_over.tscn" id="4_g5u6w"]
+[ext_resource type="PackedScene" uid="uid://bouu3jidyqm5a" path="res://scene/pause_screen.tscn" id="6_li3ib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fot1o"]
 size = Vector2(38, 38)
@@ -51,8 +52,13 @@ offset_bottom = 23.0
 grow_horizontal = 0
 text = "00000"
 horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource("4_g5u6w")]
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseScreen" parent="CanvasLayer" instance=ExtResource("6_li3ib")]
+unique_name_in_owner = true
 
 [node name="ObstacleSpawner" type="Marker2D" parent="."]
 position = Vector2(1307, 480)

@@ -3,6 +3,8 @@ extends Node2D
 @export var game_speed: float = 300
 @export var game_state: GameState
 
+@onready var pause_screen: Control = %PauseScreen
+
 
 var score: int = 0:
 	set(value):
@@ -19,6 +21,12 @@ var is_game_running: bool = true
 
 func _ready() -> void:
 	EventBus.game_restarted.connect(_on_game_restarted)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause") and is_game_running == true:
+		pause_screen.show()
+		get_tree().paused = not get_tree().paused
 
 
 func _on_score_tick_timeout() -> void:
